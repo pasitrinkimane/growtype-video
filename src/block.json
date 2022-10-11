@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "growtype/video",
+  "version": "0.1.0",
+  "title": "Growtype Video",
+  "category": "text",
+  "icon": "flag",
+  "description": "Display video in advanced way.",
+  "attributes": {
+    "shortcode": {
+      "type": "string",
+      "source": "text",
+      "selector": "div"
+    },
+    "video_url": {
+      "type": "string",
+      "default": ""
+    },
+    "cover_url": {
+      "type": "string",
+      "default": ""
+    },
+    "video_height": {
+      "type": "string",
+      "default": "40%"
+    },
+    "video_type": {
+      "type": "string",
+      "default": "youtube"
+    },
+    "play_action": {
+      "type": "string",
+      "default": "load"
+    },
+    "video_fit": {
+      "type": "string",
+      "default": "cover"
+    },
+    "full_width": {
+      "type": "boolean",
+      "default": false
+    },
+    "play_button": {
+      "type": "boolean",
+      "default": false
+    },
+    "parent_id": {
+      "type": "string",
+      "default": ""
+    },
+    "parent_class": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "growtype-video",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css"
+}

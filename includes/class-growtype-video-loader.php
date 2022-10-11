@@ -142,9 +142,39 @@ class Growtype_Video_Loader
     private function load_methods()
     {
         /**
-         * Render
+         * Scripts
          */
-        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/render/class-growtype-video-render.php';
-        $this->loader = new Growtype_Video_Render();
+        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/scripts/class-growtype-video-scripts.php';
+        $this->loader = new Growtype_Video_Scripts();
+
+        /**
+         * Iframe
+         */
+        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/media/class-growtype-video-html.php';
+        $this->loader = new Growtype_Video_Html();
+
+        /**
+         * Attachment
+         */
+        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/media/class-growtype-video-attachment.php';
+        $this->loader = new Growtype_Video_Attachment();
+
+        /**
+         * Thumbnail
+         */
+        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/media/class-growtype-video-thumbnail.php';
+        $this->loader = new Growtype_Video_Thumbnail();
+
+        /**
+         * Shortcode
+         */
+        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/shortcodes/class-growtype-video-shortcode.php';
+        $this->loader = new Growtype_Video_Shortcode();
+
+        /**
+         * block
+         */
+        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/blocks/class-growtype-video-block.php';
+        $this->loader = new Growtype_Video_Block();
     }
 }
