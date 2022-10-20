@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Growtype - Video
- * Plugin URI:        http://newcoolstudio.com/
- * Description:       Advanced video functionality.
+ * Plugin URI:        http://growtype.com/
+ * Description:       Advanced video functionality for modern websites.
  * Version:           1.0.0
- * Author:            Newcoolstudio
- * Author URI:        http://newcoolstudio.com/
+ * Author:            Growtype
+ * Author URI:        http://growtype.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       growtype-video

@@ -1,6 +1,6 @@
 === Growtype Video ===
 Contributors: (this should be a list of wordpress.org userid's)
-Donate link: http://newcoolstudio.com/
+Donate link: http://growtype.com/
 Tags: comments, spam
 Requires at least: 1.0.0
 Tested up to: 1.0.0
