@@ -23,7 +23,12 @@ import {
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import {PlainText, useBlockProps, ColorPalette, InspectorControls} from '@wordpress/block-editor';
+import {
+    PlainText,
+    useBlockProps,
+    InspectorControls,
+    InspectorAdvancedControls
+} from '@wordpress/block-editor';
 
 import {useInstanceId} from '@wordpress/compose';
 
@@ -94,125 +99,99 @@ export default function Edit({attributes, setAttributes}) {
                         title={__('Main settings', 'growtype-video')}
                         icon="admin-plugins"
                     >
-                        <PanelRow>
-                            <TextControl
-                                label={__('Video url', 'growtype-video')}
-                                help={'Demo video url: https://static.pexels.com/lib/videos/free-videos.mp4'}
-                                onChange={(val) => updateShortcode('video_url', val)}
-                                value={attributes.video_url}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <TextControl
-                                label={__('Poster url', 'growtype-video')}
-                                onChange={(val) => updateShortcode('cover_url', val)}
-                                value={attributes.cover_url}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <SelectControl
-                                label="Video type"
-                                options={[
-                                    {
-                                        label: 'Youtube',
-                                        value: 'youtube',
-                                    },
-                                    {
-                                        label: 'Vimeo',
-                                        value: 'vimeo',
-                                    },
-                                    {
-                                        label: 'Html',
-                                        value: 'html',
-                                    }
-                                ]}
-                                onChange={(val) => updateShortcode('video_type', val)}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <SelectControl
-                                label="Play action"
-                                options={[
-                                    {
-                                        label: 'Load',
-                                        value: 'load',
-                                    },
-                                    {
-                                        label: 'Mouseover',
-                                        value: 'mouseover',
-                                    },
-                                    {
-                                        label: 'Click',
-                                        value: 'click',
-                                    }
-                                ]}
-                                onChange={(val) => updateShortcode('play_action', val)}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <TextControl
-                                label={__('Parent class', 'growtype-video')}
-                                onChange={(val) => updateShortcode('parent_class', val)}
-                                value={attributes.id}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <TextControl
-                                label={__('Parent ID', 'growtype-video')}
-                                onChange={(val) => updateShortcode('parent_id', val)}
-                                value={attributes.id}
-                            />
-                        </PanelRow>
+                        <SelectControl
+                            label="Video type"
+                            options={[
+                                {
+                                    label: 'Youtube',
+                                    value: 'youtube',
+                                },
+                                {
+                                    label: 'Vimeo',
+                                    value: 'vimeo',
+                                },
+                                {
+                                    label: 'Html',
+                                    value: 'html',
+                                }
+                            ]}
+                            onChange={(val) => updateShortcode('video_type', val)}
+                        />
+                        <TextControl
+                            label={__('Video url', 'growtype-video')}
+                            help={'Demo video url: https://static.pexels.com/lib/videos/free-videos.mp4'}
+                            onChange={(val) => updateShortcode('video_url', val)}
+                            value={attributes.video_url}
+                        />
+                        <TextControl
+                            label={__('Cover url', 'growtype-video')}
+                            onChange={(val) => updateShortcode('cover_url', val)}
+                            value={attributes.cover_url}
+                        />
+                        <SelectControl
+                            label="Play action"
+                            options={[
+                                {
+                                    label: 'On page load',
+                                    value: 'load',
+                                },
+                                {
+                                    label: 'On mouseover',
+                                    value: 'mouseover',
+                                },
+                                {
+                                    label: 'On click',
+                                    value: 'click',
+                                }
+                            ]}
+                            onChange={(val) => updateShortcode('play_action', val)}
+                        />
                     </PanelBody>
                     <PanelBody
                         title={__('Preview settings', 'growtype-video')}
                         icon="admin-plugins"
                     >
-                        <PanelRow>
-                            <SelectControl
-                                label="Video fit"
-                                options={[
-                                    {
-                                        label: 'Cover',
-                                        value: 'cover',
-                                    },
-                                    {
-                                        label: 'Initial',
-                                        value: 'initial',
-                                    }
-                                ]}
-                                onChange={(val) => updateShortcode('video_fit', val)}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <TextControl
-                                label={__('Video height', 'growtype-video')}
-                                onChange={(val) => updateShortcode('video_height', val)}
-                                value={attributes.video_height}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <ToggleControl
-                                label="Active"
-                                help={
-                                    attributes.full_width
-                                        ? 'Video is full width.'
-                                        : 'Video not full width.'
+                        <SelectControl
+                            label="Video fit"
+                            value={attributes.video_fit}
+                            options={[
+                                {
+                                    label: 'Cover',
+                                    value: 'cover',
+                                },
+                                {
+                                    label: 'Initial',
+                                    value: 'initial',
                                 }
-                                checked={attributes.full_width ? true : false}
-                                onChange={(val) => updateShortcode('full_width', val)}
-                            />
-                        </PanelRow>
-                        <PanelRow>
-                            <ToggleControl
-                                label="Play button"
-                                checked={attributes.play_button ? true : false}
-                                onChange={(val) => updateShortcode('play_button', val)}
-                            />
-                        </PanelRow>
+                            ]}
+                            onChange={(val) => updateShortcode('video_fit', val)}
+                        />
+                        <TextControl
+                            label={__('Video height', 'growtype-video')}
+                            onChange={(val) => updateShortcode('video_height', val)}
+                            value={attributes.video_height}
+                        />
+                        <ToggleControl
+                            label="Video play button"
+                            checked={attributes.play_button ? true : false}
+                            onChange={(val) => updateShortcode('play_button', val)}
+                        />
                     </PanelBody>
                 </Panel>
             </InspectorControls>
+
+            <InspectorAdvancedControls>
+                <TextControl
+                    label={__('Parent class', 'growtype-video')}
+                    onChange={(val) => updateShortcode('parent_class', val)}
+                    value={attributes.id}
+                />
+                <TextControl
+                    label={__('Parent ID', 'growtype-video')}
+                    onChange={(val) => updateShortcode('parent_id', val)}
+                    value={attributes.id}
+                />
+            </InspectorAdvancedControls>
 
             <div {...useBlockProps({className: 'components-placeholder'})}>
                 <label

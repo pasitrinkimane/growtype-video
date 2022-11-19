@@ -17,7 +17,6 @@ class Growtype_Video_Html
     {
         ?>
         <div class="growtype-video-main-wrapper"
-             data-full-width="<?php echo $parameters['full_width'] ?? 'false' ?>"
              data-video-fit="<?php echo $parameters['video_fit'] ?? 'cover' ?>"
              style="<?php echo isset($parameters['video_height']) && !empty($parameters['video_height']) ? 'padding-top:' . $parameters['video_height'] : '' ?>"
         >

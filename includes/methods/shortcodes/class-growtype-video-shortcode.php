@@ -21,7 +21,6 @@ class Growtype_Video_Shortcode
             'video_url' => '',
             'video_type' => 'youtube',
             'cover_url' => '',
-            'full_width' => false,
             'play_action' => 'load',
             'video_fit' => 'cover',
             'play_button' => false,

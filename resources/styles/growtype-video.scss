@@ -2,16 +2,22 @@
 "common/variables",
 "common/global";
 
+.wp-block-growtype-video {
+  &.alignfull {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    max-width: initial;
+
+    .wp-block-group__inner-container {
+      max-width: initial;
+    }
+  }
+}
+
 .growtype-video-main-wrapper {
   position: relative;
   z-index: 1;
   padding-top: 50%;
-
-  &[data-full-width="true"] {
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    max-width: initial;
-  }
 
   &[data-video-fit="cover"] {
     video {

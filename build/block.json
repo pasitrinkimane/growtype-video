@@ -37,10 +37,6 @@
       "type": "string",
       "default": "cover"
     },
-    "full_width": {
-      "type": "boolean",
-      "default": false
-    },
     "play_button": {
       "type": "boolean",
       "default": false
@@ -55,7 +51,11 @@
     }
   },
   "supports": {
-    "html": false
+    "html": false,
+    "align": [
+      "none",
+      "full"
+    ]
   },
   "textdomain": "growtype-video",
   "editorScript": "file:./index.js",
