@@ -142,12 +142,6 @@ class Growtype_Video_Loader
     private function load_methods()
     {
         /**
-         * Scripts
-         */
-        require_once GROWTYPE_VIDEO_PATH . 'includes/methods/scripts/class-growtype-video-scripts.php';
-        $this->loader = new Growtype_Video_Scripts();
-
-        /**
          * Iframe
          */
         require_once GROWTYPE_VIDEO_PATH . 'includes/methods/media/class-growtype-video-html.php';

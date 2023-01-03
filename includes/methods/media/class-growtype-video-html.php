@@ -26,10 +26,15 @@ class Growtype_Video_Html
                  data-start="<?php echo $parameters['external_video_start_time'] ?? 0 ?>"
                  data-play-action="<?php echo $parameters['play_action'] ?? 'load' ?>"
                  data-cover="<?php echo $parameters['cover_url'] ?? '' ?>"
+                 data-custom-cover-enabled="<?php echo $parameters['custom_cover_enabled'] ?? '' ?>"
+                 data-audio-is-muted="<?php echo $parameters['audio_is_muted'] ?? 'false' ?>"
+                 data-video-is-looping="<?php echo $parameters['video_is_looping'] ?? 'true' ?>"
             ></div>
-            <div class="growtype-video-cover"
-                 style="<?php echo isset($parameters['cover_url']) && !empty($parameters['cover_url']) ? 'background-image:url(' . $parameters['cover_url'] . ');background-size: cover;background-position: center;' : ''; ?>"
-            ></div>
+            <?php if (isset($parameters['custom_cover_enabled']) && $parameters['custom_cover_enabled'] === 'true') { ?>
+                <div class="growtype-video-cover"
+                     style="<?php echo isset($parameters['cover_url']) && !empty($parameters['cover_url']) ? 'background-image:url(' . $parameters['cover_url'] . ');background-size: cover;background-position: center;' : ''; ?>"
+                ></div>
+            <?php } ?>
             <?php if (isset($parameters['play_button']) && $parameters['play_button'] === 'true') { ?>
                 <div class="growtype-video-btn-play"></div>
             <?php } ?>

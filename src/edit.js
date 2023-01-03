@@ -100,7 +100,7 @@ export default function Edit({attributes, setAttributes}) {
                         icon="admin-plugins"
                     >
                         <SelectControl
-                            label="Video type"
+                            label={__('Video type', 'growtype-video')}
                             options={[
                                 {
                                     label: 'Youtube',
@@ -115,6 +115,7 @@ export default function Edit({attributes, setAttributes}) {
                                     value: 'html',
                                 }
                             ]}
+                            value={attributes.video_type}
                             onChange={(val) => updateShortcode('video_type', val)}
                         />
                         <TextControl
@@ -123,20 +124,15 @@ export default function Edit({attributes, setAttributes}) {
                             onChange={(val) => updateShortcode('video_url', val)}
                             value={attributes.video_url}
                         />
-                        <TextControl
-                            label={__('Cover url', 'growtype-video')}
-                            onChange={(val) => updateShortcode('cover_url', val)}
-                            value={attributes.cover_url}
-                        />
                         <SelectControl
-                            label="Play action"
+                            label={__('Play action', 'growtype-video')}
                             options={[
                                 {
-                                    label: 'On page load',
+                                    label: 'On page load (audio must be muted)',
                                     value: 'load',
                                 },
                                 {
-                                    label: 'On mouseover',
+                                    label: 'On mouseover (audio must be muted)',
                                     value: 'mouseover',
                                 },
                                 {
@@ -144,7 +140,13 @@ export default function Edit({attributes, setAttributes}) {
                                     value: 'click',
                                 }
                             ]}
+                            value={attributes.play_action}
                             onChange={(val) => updateShortcode('play_action', val)}
+                        />
+                        <ToggleControl
+                            label={__('Video is looping', 'growtype-video')}
+                            checked={attributes.video_is_looping ? true : false}
+                            onChange={(val) => updateShortcode('video_is_looping', val)}
                         />
                     </PanelBody>
                     <PanelBody
@@ -172,9 +174,33 @@ export default function Edit({attributes, setAttributes}) {
                             value={attributes.video_height}
                         />
                         <ToggleControl
-                            label="Video play button"
+                            label={__('Video play button', 'growtype-video')}
                             checked={attributes.play_button ? true : false}
                             onChange={(val) => updateShortcode('play_button', val)}
+                        />
+                        <ToggleControl
+                            label={__('Custom cover', 'growtype-video')}
+                            checked={attributes.custom_cover_enabled ? true : false}
+                            onChange={(val) => updateShortcode('custom_cover_enabled', val)}
+                        />
+                        {
+                            attributes.custom_cover_enabled ?
+                                <TextControl
+                                    label={__('Custom cover url', 'growtype-video')}
+                                    onChange={(val) => updateShortcode('cover_url', val)}
+                                    value={attributes.cover_url}
+                                />
+                                : ''
+                        }
+                    </PanelBody>
+                    <PanelBody
+                        title={__('Audio settings', 'growtype-video')}
+                        icon="admin-plugins"
+                    >
+                        <ToggleControl
+                            label={__('Muted', 'growtype-video')}
+                            checked={attributes.audio_is_muted ? true : false}
+                            onChange={(val) => updateShortcode('audio_is_muted', val)}
                         />
                     </PanelBody>
                 </Panel>
@@ -199,14 +225,14 @@ export default function Edit({attributes, setAttributes}) {
                     className="components-placeholder__label"
                 >
                     <Icon icon={shortcode}/>
-                    {__('Growtype video shortcode')}
+                    {__('Growtype video shortcode', 'growtype-video')}
                 </label>
                 <PlainText
                     className="blocks-shortcode__textarea"
                     id={inputId}
                     value={attributes.shortcode}
-                    aria-label={__('Shortcode text')}
-                    placeholder={__('Write shortcode here…')}
+                    aria-label={__('Shortcode text', 'growtype-video')}
+                    placeholder={__('Write shortcode here…', 'growtype-video')}
                     onChange={(val) => setAttributes({shortcode: val})}
                 />
             </div>
