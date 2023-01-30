@@ -43,7 +43,7 @@
     },
     "audio_is_muted": {
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "video_is_looping": {
       "type": "boolean",

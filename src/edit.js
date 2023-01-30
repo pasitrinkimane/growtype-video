@@ -91,6 +91,11 @@ export default function Edit({attributes, setAttributes}) {
         attributes.shortcode = '[growtype_video]'
     }
 
+    let exampleVideos = {
+        'youtube': 'https://www.youtube.com/embed/BHACKCNDMW8',
+        'html': 'https://static.pexels.com/lib/videos/free-videos.mp4',
+    }
+
     return (
         <div {...blockProps}>
             <InspectorControls key={'inspector'}>
@@ -107,10 +112,6 @@ export default function Edit({attributes, setAttributes}) {
                                     value: 'youtube',
                                 },
                                 {
-                                    label: 'Vimeo',
-                                    value: 'vimeo',
-                                },
-                                {
                                     label: 'Html',
                                     value: 'html',
                                 }
@@ -120,7 +121,7 @@ export default function Edit({attributes, setAttributes}) {
                         />
                         <TextControl
                             label={__('Video url', 'growtype-video')}
-                            help={'Demo video url: https://static.pexels.com/lib/videos/free-videos.mp4'}
+                            help={'Demo video url: ' + exampleVideos[attributes.video_type]}
                             onChange={(val) => updateShortcode('video_url', val)}
                             value={attributes.video_url}
                         />

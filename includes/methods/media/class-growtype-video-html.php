@@ -30,7 +30,7 @@ class Growtype_Video_Html
                  data-audio-is-muted="<?php echo $parameters['audio_is_muted'] ?? 'false' ?>"
                  data-video-is-looping="<?php echo $parameters['video_is_looping'] ?? 'true' ?>"
             ></div>
-            <?php if (isset($parameters['custom_cover_enabled']) && $parameters['custom_cover_enabled'] === 'true') { ?>
+            <?php if (isset($parameters['video_type']) && $parameters['video_type'] !== 'html' && isset($parameters['custom_cover_enabled']) && $parameters['custom_cover_enabled'] === 'true') { ?>
                 <div class="growtype-video-cover"
                      style="<?php echo isset($parameters['cover_url']) && !empty($parameters['cover_url']) ? 'background-image:url(' . $parameters['cover_url'] . ');background-size: cover;background-position: center;' : ''; ?>"
                 ></div>
