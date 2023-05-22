@@ -21,11 +21,11 @@ function setupVideoPlay() {
  * Html video setup
  */
 function initHtmlVideo() {
-    jQuery('.growtype-video-player[data-type="html"]').each(function (index, videoContainer) {
+    jQuery('.growtype-video-player[data-type="html"]').each(function (index, videoPlayer) {
         var videoTag = document.createElement('video');
         var sourceTag = document.createElement('source');
 
-        sourceTag.setAttribute('src', jQuery(videoContainer).attr('data-link'));
+        sourceTag.setAttribute('src', jQuery(videoPlayer).attr('data-link'));
         sourceTag.setAttribute('type', 'video/mp4');
 
         videoTag.appendChild(sourceTag);
@@ -35,11 +35,11 @@ function initHtmlVideo() {
         videoTag.controls = false;
         videoTag.preload = 'auto';
         videoTag.loop = true;
-        videoTag.poster = jQuery(videoContainer).attr('data-cover');
+        videoTag.poster = jQuery(videoPlayer).attr('data-cover');
 
-        jQuery(videoContainer).append(videoTag)
+        jQuery(videoPlayer).append(videoTag)
 
-        initVideoPlayer(videoTag, videoContainer, 'html');
+        initVideoPlayer(videoTag, $(videoPlayer), 'html');
     });
 }
 
@@ -104,87 +104,97 @@ function initYoutubeApi() {
     }
 }
 
-function initVideoPlayer(video, videoContainer = null, videoType = 'youtube') {
-    let target = video.target ? video.target : video;
-    let targetWrapper = target.h ? target.h : videoContainer;
-    let container = target.v ? jQuery(target.v) : jQuery(videoContainer);
+function initVideoPlayer(video, videoPlayer = null, videoType = 'youtube') {
+
+    let videoTag = $(video);
+    let videoContainer = $(video).closest('.growtype-video-main-wrapper');
+
+    if (videoType === 'youtube') {
+        videoPlayer = $(video.target.g);
+        videoTag = video.target;
+        videoContainer = $(video.target.g).closest('.growtype-video-main-wrapper');
+    }
 
     /**
      * Mute video
      */
-    const audioIsMuted = container.attr('data-audio-is-muted');
+    const audioIsMuted = videoPlayer.attr('data-audio-is-muted');
 
-    if (videoType !== 'html') {
-        if (audioIsMuted || container.attr('data-play-action') === 'load' || container.attr('data-play-action') === 'mouseover') {
-            target.mute();
+    if (audioIsMuted === 'true') {
+        if (videoType === 'html') {
+            if (videoPlayer.attr('data-play-action') === 'load' || videoPlayer.attr('data-play-action') === 'mouseover') {
+                videoTag.prop('muted', true);
+            }
+        } else if (videoType === 'youtube') {
+            videoTag.mute()
         }
     }
 
-    if (container.attr('data-play-action') === 'load') {
-        initVideoPlay(target, targetWrapper, videoType)
-    } else if (container.attr('data-play-action') === 'mouseover') {
+    if (videoPlayer.attr('data-play-action') === 'load') {
+        initVideoPlay(videoTag, videoContainer, videoType)
+    } else if (videoPlayer.attr('data-play-action') === 'mouseover') {
+
         /**
          * On cover mouseover
          */
-        jQuery(targetWrapper).closest('.growtype-video-main-wrapper').find('.growtype-video-cover').on('mouseover', function () {
-            initVideoPlay(target, targetWrapper, videoType)
+        videoContainer.find('.growtype-video-cover').on('mouseover', function () {
+            initVideoPlay(videoTag, videoContainer, videoType)
         });
 
         /**
          * On play btn mouseover
          */
-        jQuery(targetWrapper).closest('.growtype-video-main-wrapper').find('.growtype-video-btn-play').on('mouseover', function () {
-            initVideoPlay(target, targetWrapper, videoType)
+        videoContainer.find('.growtype-video-btn-play').on('mouseover', function () {
+            initVideoPlay(videoTag, videoContainer, videoType)
         });
 
         /**
          * On video mouseover
          */
-        jQuery(targetWrapper).on('mouseover', function () {
-            initVideoPlay(target, targetWrapper, videoType)
+        videoContainer.on('mouseover', function () {
+            initVideoPlay(videoTag, videoContainer, videoType)
         });
-    } else if (container.attr('data-play-action') === 'click') {
+    } else if (videoPlayer.attr('data-play-action') === 'click') {
+
         /**
          * On cover click
          */
-        jQuery(targetWrapper).closest('.growtype-video-main-wrapper').find('.growtype-video-cover').on('click', function () {
-            initVideoPlay(target, targetWrapper, videoType)
+        videoContainer.find('.growtype-video-cover').on('click', function () {
+            initVideoPlay(videoTag, videoContainer, videoType)
         });
 
         /**
          * On play btn click
          */
-        jQuery(targetWrapper).closest('.growtype-video-main-wrapper').find('.growtype-video-btn-play').on('click', function () {
-            initVideoPlay(target, targetWrapper, videoType)
+        videoContainer.find('.growtype-video-btn-play').on('click', function () {
+            initVideoPlay(videoTag, videoContainer, videoType);
+            event.stopPropagation();
         });
 
         /**
          * On video mouseover
          */
-        jQuery(targetWrapper).on('click', function () {
-            initVideoPlay(target, targetWrapper, videoType, 'click')
+        videoContainer.on('click', function () {
+            initVideoPlay(videoTag, videoContainer, videoType, 'click')
         });
     }
 }
 
-function initVideoPlay(video, videoContainer = null, videoType = 'youtube', initEvent = null) {
-    let iframeWrapper = video.h ? video.h : videoContainer
-
-    jQuery(iframeWrapper).closest('.growtype-video-main-wrapper').find('.growtype-video-cover').fadeOut();
-    jQuery(iframeWrapper).closest('.growtype-video-main-wrapper').find('.growtype-video-btn-play').fadeOut();
-    jQuery(iframeWrapper).animate({opacity: 1}, 500);
+function initVideoPlay(videoTag, videoContainer = null, videoType = 'youtube', initEvent = null) {
+    videoContainer.find('.growtype-video-cover').fadeOut();
+    videoContainer.find('.growtype-video-btn-play').fadeOut();
 
     if (videoType === 'html') {
-        if (jQuery(video).get(0).paused) {
-            video.play()
+        if (videoTag.get(0).paused) {
+            videoTag[0].play()
         } else {
             if (initEvent === 'click') {
-                video.load()
-                jQuery(iframeWrapper).closest('.growtype-video-main-wrapper').find('.growtype-video-btn-play').fadeIn();
+                videoTag[0].load()
+                videoContainer.find('.growtype-video-btn-play').fadeIn();
             }
         }
     } else {
-        video.playVideo();
+        videoTag.playVideo();
     }
 }
 
