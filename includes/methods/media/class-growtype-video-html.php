@@ -18,6 +18,7 @@ class Growtype_Video_Html
         ?>
         <div class="growtype-video-main-wrapper"
              data-video-fit="<?php echo $parameters['video_fit'] ?? 'cover' ?>"
+             data-video-cover-type="<?php echo $parameters['video_cover_type'] ?? '' ?>"
              style="<?php echo isset($parameters['video_height']) && !empty($parameters['video_height']) ? 'padding-top:' . $parameters['video_height'] : '' ?>"
         >
             <div class="growtype-video-player"
@@ -26,15 +27,21 @@ class Growtype_Video_Html
                  data-start="<?php echo $parameters['external_video_start_time'] ?? 0 ?>"
                  data-play-action="<?php echo $parameters['play_action'] ?? 'load' ?>"
                  data-cover="<?php echo $parameters['cover_url'] ?? '' ?>"
-                 data-custom-cover-enabled="<?php echo $parameters['custom_cover_enabled'] ?? '' ?>"
                  data-audio-is-muted="<?php echo $parameters['audio_is_muted'] ?? 'false' ?>"
                  data-video-is-looping="<?php echo $parameters['video_is_looping'] ?? 'true' ?>"
             ></div>
-            <?php if (isset($parameters['video_type']) && $parameters['video_type'] !== 'html' && isset($parameters['custom_cover_enabled']) && $parameters['custom_cover_enabled'] === 'true') { ?>
-                <div class="growtype-video-cover"
-                     style="<?php echo isset($parameters['cover_url']) && !empty($parameters['cover_url']) ? 'background-image:url(' . $parameters['cover_url'] . ');background-size: cover;background-position: center;' : ''; ?>"
-                ></div>
-            <?php } ?>
+            <?php if (isset($parameters['video_type']) && $parameters['video_type'] !== 'html' && isset($parameters['video_cover_type']) && in_array($parameters['video_cover_type'], ['custom', 'youtube'])) {
+                $video_cover_html = '';
+                if ($parameters['video_cover_type'] === 'custom' && isset($parameters['cover_url']) && !empty($parameters['cover_url'])) {
+                    $video_cover_html = 'style="background-image:url(' . $parameters['cover_url'] . ');background-size: cover;background-position: center;"';
+                } elseif ($parameters['video_cover_type'] === 'youtube' && isset($parameters['external_video_link_id']) && !empty($parameters['external_video_link_id'])) {
+                    $video_cover_html = 'style="background-image:url(https://img.youtube.com/vi/' . $parameters['external_video_link_id'] . '/maxresdefault.jpg);background-size: cover;background-position: center;"';
+                }
+
+                if (!empty($video_cover_html)) { ?>
+                    <div class="growtype-video-cover" <?php echo $video_cover_html ?>></div>
+                <?php }
+            } ?>
             <?php if (isset($parameters['play_button']) && $parameters['play_button'] === 'true') { ?>
                 <div class="growtype-video-btn-play"></div>
             <?php } ?>

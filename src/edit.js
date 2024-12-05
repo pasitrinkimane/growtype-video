@@ -179,13 +179,27 @@ export default function Edit({attributes, setAttributes}) {
                             checked={attributes.play_button ? true : false}
                             onChange={(val) => updateShortcode('play_button', val)}
                         />
-                        <ToggleControl
-                            label={__('Custom cover', 'growtype-video')}
-                            checked={attributes.custom_cover_enabled ? true : false}
-                            onChange={(val) => updateShortcode('custom_cover_enabled', val)}
+                        <SelectControl
+                            label={__('Cover type', 'growtype-video')}
+                            value={attributes.video_cover_type}
+                            options={[
+                                {
+                                    label: 'Default',
+                                    value: 'default',
+                                },
+                                {
+                                    label: 'Custom',
+                                    value: 'custom',
+                                },
+                                {
+                                    label: 'Youtube',
+                                    value: 'youtube',
+                                }
+                            ]}
+                            onChange={(val) => updateShortcode('video_cover_type', val)}
                         />
                         {
-                            attributes.custom_cover_enabled ?
+                            attributes.video_cover_type === 'custom' ?
                                 <TextControl
                                     label={__('Custom cover url', 'growtype-video')}
                                     onChange={(val) => updateShortcode('cover_url', val)}

@@ -17,9 +17,9 @@
       "type": "string",
       "default": ""
     },
-    "custom_cover_enabled": {
-      "type": "boolean",
-      "default": false
+    "video_cover_type": {
+      "type": "string",
+      "default": "default"
     },
     "cover_url": {
       "type": "string",

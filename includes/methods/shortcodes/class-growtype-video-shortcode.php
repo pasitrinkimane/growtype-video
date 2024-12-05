@@ -25,7 +25,7 @@ class Growtype_Video_Shortcode
             'video_fit' => 'cover',
             'play_button' => false,
             'video_height' => false,
-            'custom_cover_enabled' => false,
+            'video_cover_type' => 'default',
             'audio_is_muted' => false,
             'video_is_looping' => true,
         ), $atts));
