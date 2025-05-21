@@ -65,6 +65,8 @@ function initYoutubeApi() {
             const videoId = jQuery(element).attr('data-link');
             const videoStartTime = jQuery(element).attr('data-start');
             const customCoverEnabled = jQuery(element).attr('data-custom-cover-enabled');
+            const videoIsLooping = jQuery(element).attr('data-video-is-looping');
+            const videoAutoplay = jQuery(element).attr('data-play-action') === 'load'
 
             if (!videoWrapper.hasClass('growtype-video-is-active')) {
                 videoWrapper.addClass('growtype-video-is-active');
@@ -75,8 +77,8 @@ function initYoutubeApi() {
                 width: '100%',
                 videoId: videoId,
                 playerVars: {
-                    autoplay: 0,
-                    loop: 0,
+                    autoplay: videoAutoplay,
+                    loop: videoIsLooping,
                     start: videoStartTime,
                     controls: 0,
                     showinfo: 0,
@@ -89,15 +91,26 @@ function initYoutubeApi() {
             });
 
             function onPlayerStateChange(event) {
-                let element = jQuery(event.target.v);
+                let element = jQuery(event.target.getIframe()); // More reliable way to get the iframe element
 
-                if (event.data === 0 && element.attr('data-video-is-looping') === 'true') {
-                    jQuery(element).animate({opacity: 1}, 1000);
-                    jQuery(element).closest('.growtype-video-main-wrapper').removeClass('growtype-video-is-active');
-                    player[index].loadVideoById({
-                        videoId: videoId,
-                        startSeconds: videoStartTime,
-                    });
+                if (!element.length) {
+                    console.warn("YouTube Player element not found.");
+                    return;
+                }
+
+                if (event.data === YT.PlayerState.ENDED && element.attr('data-video-is-looping') === 'true') {
+                    element.animate({opacity: 1}, 1000);
+                    element.closest('.growtype-video-main-wrapper').removeClass('growtype-video-is-active');
+                    
+                    let playerIndex = player.findIndex(p => p === event.target);
+                    if (playerIndex !== -1) {
+                        player[playerIndex].loadVideoById({
+                            videoId: videoId,
+                            startSeconds: videoStartTime,
+                        });
+                    } else {
+                        console.warn("Player instance not found in array.");
+                    }
                 }
             }
         });
